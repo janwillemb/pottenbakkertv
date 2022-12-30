@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  #header
+  #content
+    #leftcol
+      h1.section Huiskamer
+      p.row
+        span.label Temperatuur: 
+        span.value #{roomTemp}&deg;C
+      p.row
+        span.label Luchtvochtigheid: 
+        span.value #{roomHumid}% (#{roomHumidLabel})
+      p.row 
+        span.label Luchtkwaliteit: 
+        span.value #{ppm}ppm (#{airQuality})
+
+      h1.section Energie 
+      p.row 
+        span.label Electriciteitverbruik nu: 
+        span.value #{watt}kWh
+      p.row 
+        span.label Opbrengst zonnepanelen nu: 
+        span.value #{solarWatt}kWh
+      p.row 
+        span.label Gasverbruik vandaag: 
+        span.value #{gas} m<sup>3</sup> (€#{gasDue})
+        
+      h1.section Buiten 
+      p.row 
+        span.label Temperatuur: 
+        span.value #{temp}&deg;C
+      p.row 
+        span.label Gevoelstemperatuur: 
+        span.value #{feelTemp}&deg;C
+      p.row 
+        span.label Luchtvochtigheid: 
+        span.value #{humid}% (#{humidLabel})
+
+
+    #rightcol
+
+      #datetime
+        #time #{time}
+        #weekday #{weekday}
+        #date #{date}
+
+      canvas#buiengrafiek
+
+      p#buientekst
+
+      #buiendata
+        script#buienDataJson 
+          | buienData=JSON.parse("#{buienJson}".replace(/&quot;/g, "\""));
+      script(src="/javascripts/buien.js")
+
+  #footer
+    p #{err}
+    script(src="/javascripts/refresh.js")

@@ -1,0 +1,68 @@
+body {
+  background-color: black;
+  color: white;
+  font: 14px "Fira Sans", sans-serif;
+}
+
+#content {
+  display:flex;
+}
+#leftcol, #rightcol {
+  flex: 50%;
+}
+#leftcol {
+  text-align: right;
+  padding-right: 40px;
+  margin-left: 200px;
+}
+#rightcol {
+  padding-left: 40px;
+  text-align: right;
+  margin-right: 200px;
+}
+
+#buiengrafiek {
+  width: 300px;
+  height: 150px;
+}
+
+#buientekst {
+  margin-top: 25px;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 100;
+  font-size: 16pt;
+}
+
+.weatherwidget-io {
+  width: 400px;
+}
+
+#datetime {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 100;
+  margin-top: 25px;
+  font-size: 25pt;
+}
+
+#time {
+  font-size: 80pt;
+}
+
+
+h1 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 30pt;
+  padding-right: 100px;
+  border-bottom: 1px solid Silver;
+}
+
+.row {
+  font-size: 16pt;
+}
+.label {
+  font-weight: 100;
+}
+.value {
+  width: 150px;
+  display: inline-block;
+}
