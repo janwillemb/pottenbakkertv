@@ -9,15 +9,14 @@ body {
 }
 #leftcol, #rightcol {
   flex: 50%;
+  text-align: right;
 }
 #leftcol {
-  text-align: right;
   padding-right: 40px;
   margin-left: 200px;
 }
 #rightcol {
   padding-left: 40px;
-  text-align: right;
   margin-right: 200px;
 }
 

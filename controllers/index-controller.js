@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-let controller = {};
+const controller = {};
 
 controller.getIndexModel = async () => {
     const baseUrl = "http://192.168.50.221:8080/json.htm?type=devices&rid=";
@@ -11,7 +11,7 @@ controller.getIndexModel = async () => {
         // binnen vocht
         response = await axios.get(baseUrl + "38");
         const roomHumid = response.data.result[0].Humidity;
-        const roomHumidLabel = "normaal";
+        let roomHumidLabel = "normaal";
         if (roomHumid < 50) {
             roomHumidLabel = "droog";
         }
