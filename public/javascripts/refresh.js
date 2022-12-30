@@ -1,7 +1,7 @@
 const href = window.location.href;
 let isSwapped = false;
 
-setTimeout(() => {
+setInterval(() => {
     fetch(href).then((response) => {
         return response.text();
     }).then((text) => {
