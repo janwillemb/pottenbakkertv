@@ -18,8 +18,7 @@ if (buienData.length > 0) {
         const periodData = buienData[i];
         const period = periodData.time;
         const precip = Math.min(100, Math.pow(10, (periodData.precip - 109) / 32) * 10); //mm*10, max 100 (10mm)
-
-        const barHeight = ((height - 2) / 100) * precip;
+        const barHeight = ((height - 2) / 100) * precip; // als het meer dan 10mm wordt zie je het niet meer.
 
         context.fillRect(i * barSize + 1, height - barHeight - 2, barSize - 2, barHeight);
 

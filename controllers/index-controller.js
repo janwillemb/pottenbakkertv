@@ -121,7 +121,7 @@ controller.getIndexModel = async () => {
             solarWatt: solarWatt.toLocaleString("nl-NL"),
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
             gas: gas.toLocaleString("nl-NL"),
-            gasDue: gasDue.toLocaleString("nl-NL"),
+            gasDue: gasDue.toLocaleString("nl-NL", {minimumFractionDigits: 2, maximumFractionDigits: 2}),
             time,
             weekday,
             date,
