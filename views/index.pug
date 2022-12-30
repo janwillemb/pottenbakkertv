@@ -12,20 +12,23 @@ block content
         span.label Luchtvochtigheid: 
         span.value #{roomHumid}% (#{roomHumidLabel})
       p.row 
-        span.label Luchtkwaliteit: 
-        span.value #{ppm}ppm (#{airQuality})
+        span.label Luchtkwaliteit CO2: 
+        span.value #{ppm} ppm (#{airQuality})
 
       h1.section Energie 
       p.row 
         span.label Electriciteitverbruik nu: 
-        span.value #{watt}kWh
+        span.value #{watt} kWh
       p.row 
         span.label Opbrengst zonnepanelen nu: 
-        span.value #{solarWatt}kWh
+        span.value #{solarWatt} kWh
+      p.row 
+        span.label Opbrengst vandaag: 
+        span.value #{solarTodayWatt} kWh
       p.row 
         span.label Gasverbruik vandaag: 
         span.value #{gas} m<sup>3</sup> (€#{gasDue})
-        
+
       h1.section Buiten 
       p.row 
         span.label Temperatuur: 

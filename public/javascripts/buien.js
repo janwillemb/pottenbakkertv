@@ -17,9 +17,9 @@ if (buienData.length > 0) {
     for (let i = 0; i < buienData.length; i++) {
         const periodData = buienData[i];
         const period = periodData.time;
-        const precip = Math.min(200, Math.pow(10, (periodData.precip - 109) / 32) * 10); //mm*10, max 200
+        const precip = Math.min(100, Math.pow(10, (periodData.precip - 109) / 32) * 10); //mm*10, max 100 (10mm)
 
-        const barHeight = ((height - 2) / 200) * precip;
+        const barHeight = ((height - 2) / 100) * precip;
 
         context.fillRect(i * barSize + 1, height - barHeight - 2, barSize - 2, barHeight);
 
@@ -38,7 +38,7 @@ if (buienData.length > 0) {
     context.stroke();
 
     if (firstPeriod) {
-        buienTekst.innerText = periodPrecip + " mm neerslag verwacht om " + firstPeriod;
+        buienTekst.innerText = periodPrecip.toLocaleString("nl-NL") + " mm neerslag verwacht om " + firstPeriod;
     } else {
         buienTekst.innerText = "Geen neerslag verwacht.";
     }

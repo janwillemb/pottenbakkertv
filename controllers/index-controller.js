@@ -52,12 +52,17 @@ controller.getIndexModel = async () => {
         const usage = response.data.result[0].Data;
         const watt = Number(usage.replace(/[^\d.]/g, ''));
 
-        // zonnepanelen
+        // zonnepanelen nu
         response = await axios.get(baseUrl + "4");
         const solar = response.data.result[0].Data;
         const solarWatt = Number(solar.replace(/[^\d.]/g, ''));
 
-        // zonnepanelen
+        // zonnepanelen vandaag
+        response = await axios.get(baseUrl + "25");
+        const solarToday = response.data.result[0].CounterToday;
+        const solarTodayWatt = Number(solarToday.replace(/[^\d.]/g, ''));
+        
+        // gas
         response = await axios.get(baseUrl + "5");
         const gasRaw = response.data.result[0].CounterToday;
         let gas = Number(gasRaw.replace(/[^\d.]/g, ''));
@@ -103,19 +108,20 @@ controller.getIndexModel = async () => {
         const buienJson = JSON.stringify(buienData);
 
         return {
-            roomTemp,
-            roomHumid,
+            roomTemp: roomTemp.toLocaleString("nl-NL"),
+            roomHumid: roomHumid.toLocaleString("nl-NL"),
             roomHumidLabel,
             ppm,
             airQuality,
-            temp,
-            feelTemp,
+            temp: temp.toLocaleString("nl-NL"),
+            feelTemp: feelTemp.toLocaleString("nl-NL"),
             humid,
             humidLabel,
             watt,
-            solarWatt,
-            gas,
-            gasDue,
+            solarWatt: solarWatt.toLocaleString("nl-NL"),
+            solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
+            gas: gas.toLocaleString("nl-NL"),
+            gasDue: gasDue.toLocaleString("nl-NL"),
             time,
             weekday,
             date,

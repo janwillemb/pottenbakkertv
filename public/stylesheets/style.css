@@ -51,9 +51,10 @@ body {
 
 h1 {
   font-family: 'Amatic SC', cursive;
-  font-size: 30pt;
-  padding-right: 100px;
-  border-bottom: 1px solid Silver;
+  font-size: 40pt;
+  padding-left: 10px;
+  border-bottom: 1px solid gray;
+  text-align: left;
 }
 
 .row {
@@ -63,6 +64,6 @@ h1 {
   font-weight: 100;
 }
 .value {
-  width: 150px;
+  width: 160px;
   display: inline-block;
 }
