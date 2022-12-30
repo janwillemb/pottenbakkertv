@@ -85,6 +85,19 @@ controller.getIndexModel = async () => {
         gasDue = Math.round(gasDue * 100) / 100;
         gas = Math.round(gas * 1000) / 1000;
 
+        // mensjes
+        response = await axios.get(baseUrl + "40");
+        const ruth = response.data.result[0].Data;
+
+        response = await axios.get(baseUrl + "41");
+        const mj = response.data.result[0].Data;
+
+        response = await axios.get(baseUrl + "42");
+        const al = response.data.result[0].Data;
+
+        response = await axios.get(baseUrl + "43");
+        const jw = response.data.result[0].Data;
+
         // date
         let weekday = today.toLocaleString("nl-NL", { weekday: 'long' });
         let time = today.toLocaleTimeString("nl-NL", { hour: 'numeric', minute: 'numeric'});
@@ -125,7 +138,8 @@ controller.getIndexModel = async () => {
             time,
             weekday,
             date,
-            buienJson
+            buienJson,
+            ruth, mj, al, jw
         };
     } catch (err) {
         return { err: err.response ? err.response.body : err }
