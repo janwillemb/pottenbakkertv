@@ -2,6 +2,10 @@ const axios = require('axios');
 
 const controller = {};
 
+function cleanupLocation(x) {
+    return x.replace(/,\sNetherlands/g, '');
+}
+
 controller.getIndexModel = async () => {
     const baseUrl = "http://192.168.50.221:8080/json.htm?type=devices&rid=";
     try {
@@ -61,7 +65,7 @@ controller.getIndexModel = async () => {
         response = await axios.get(baseUrl + "25");
         const solarToday = response.data.result[0].CounterToday;
         const solarTodayWatt = Number(solarToday.replace(/[^\d.]/g, ''));
-        
+
         // gas
         response = await axios.get(baseUrl + "5");
         const gasRaw = response.data.result[0].CounterToday;
@@ -87,20 +91,20 @@ controller.getIndexModel = async () => {
 
         // mensjes
         response = await axios.get(baseUrl + "40");
-        const ruth = response.data.result[0].Data;
+        const ruth = cleanupLocation(response.data.result[0].Data);
 
         response = await axios.get(baseUrl + "41");
-        const mj = response.data.result[0].Data;
+        const mj = cleanupLocation(response.data.result[0].Data);
 
         response = await axios.get(baseUrl + "42");
-        const al = response.data.result[0].Data;
+        const al = cleanupLocation(response.data.result[0].Data);
 
         response = await axios.get(baseUrl + "43");
-        const jw = response.data.result[0].Data;
+        const jw = cleanupLocation(response.data.result[0].Data);
 
         // date
         let weekday = today.toLocaleString("nl-NL", { weekday: 'long' });
-        let time = today.toLocaleTimeString("nl-NL", { hour: 'numeric', minute: 'numeric'});
+        let time = today.toLocaleTimeString("nl-NL", { hour: 'numeric', minute: 'numeric' });
         let date = today.toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" });
 
         // buienradar
@@ -108,13 +112,13 @@ controller.getIndexModel = async () => {
         try {
             response = await axios.get("https://gpsgadget.buienradar.nl/data/raintext?lat=52.2&lon=6.01");
             const buienradarData = response.data;
-            const lines = buienradarData.replace(/\r/g,'').split("\n");
-            
+            const lines = buienradarData.replace(/\r/g, '').split("\n");
+
             for (let i = 0; i < lines.length; i++) {
                 const periodData = lines[i].split("|");
                 const precip = Number(periodData[0]);
                 const time = periodData[1];
-                buienData.push({time, precip});
+                buienData.push({ time, precip });
             }
         } catch (errbuien) {
         }
@@ -134,7 +138,7 @@ controller.getIndexModel = async () => {
             solarWatt: solarWatt.toLocaleString("nl-NL"),
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
             gas: gas.toLocaleString("nl-NL"),
-            gasDue: gasDue.toLocaleString("nl-NL", {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+            gasDue: gasDue.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
             time,
             weekday,
             date,
@@ -145,6 +149,5 @@ controller.getIndexModel = async () => {
         return { err: err.response ? err.response.body : err }
     }
 };
-
 
 module.exports = controller;
