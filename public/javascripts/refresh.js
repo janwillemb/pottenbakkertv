@@ -10,6 +10,7 @@ setInterval(() => {
         const divs = div.getElementsByTagName("div");
         let newLeftCol;
         let newDateTime;
+        let newLocaties;
         for (let i = 0; i < divs.length; i++) {
             if (divs[i].id == "leftcol") {
                 newLeftCol = divs[i];
@@ -17,12 +18,17 @@ setInterval(() => {
             if (divs[i].id == "datetime") {
                 newDateTime = divs[i];
             }
+            if (divs[i].id == "locaties") {
+                newLocaties = divs[i];
+            }
         }
 
         const leftCol = document.getElementById("leftcol");
         leftCol.replaceWith(newLeftCol);
         const datetime = document.getElementById("datetime");
         datetime.replaceWith(newDateTime);
+        const locaties = document.getElementById("locaties");
+        locaties.replaceWith(newLocaties);
 
         if (isSwapped) {
             fixCssAfterSwap();
