@@ -58,6 +58,7 @@ h1.locaties {
   border-bottom: 1px solid gray;
   width: 180px;
   display: inline-block;
+  margin-bottom: 0px;
 }
 
 .row {

@@ -102,6 +102,9 @@ controller.getIndexModel = async () => {
         response = await axios.get(baseUrl + "43");
         const jw = cleanupLocation(response.data.result[0].Data);
 
+        response = await axios.get(baseUrl + "44");
+        const hugo = cleanupLocation(response.data.result[0].Data);
+
         // date
         let weekday = today.toLocaleString("nl-NL", { weekday: 'long' });
         let time = today.toLocaleTimeString("nl-NL", { hour: 'numeric', minute: 'numeric' });
@@ -143,7 +146,7 @@ controller.getIndexModel = async () => {
             weekday,
             date,
             buienJson,
-            ruth, mj, al, jw
+            ruth, mj, al, jw, hugo
         };
     } catch (err) {
         return { err: err.response ? err.response.body : err }
