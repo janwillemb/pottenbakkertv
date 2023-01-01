@@ -71,23 +71,21 @@ controller.getIndexModel = async () => {
         const gasRaw = response.data.result[0].CounterToday;
         let gas = Number(gasRaw.replace(/[^\d.]/g, ''));
         let gasDue = 0;
-        const gasPriceDecember = 2.71925;
-        const gasPerDayDecember = 0.68618;
+        let gasDuePlafond = 0;
         const gasPriceJan = 2.55813;
         const gasPerDayJan = 0.20822;
         const gasPriceFeb = 2.35777;
         const gasPerDayFeb = 0.20822;
+        const gasPricePlafond = 1.45;
 
         const today = new Date();
-        if (today.getFullYear() == 2022) {
-            gasDue = gasPriceDecember * gas + gasPerDayDecember;
-        } else if (today.getFullYear() == 2023 && today.getMonth() == 0) {
+        if (today.getMonth() == 0) {
             gasDue = gasPriceJan * gas + gasPerDayJan;
+            gasDuePlafond = gasPricePlafond * gas + gasPerDayJan;
         } else {
             gasDue = gasPriceFeb * gas + gasPerDayFeb;
+            gasDuePlafond = gasPricePlafond * gas + gasPerDayFeb;
         }
-        gasDue = Math.round(gasDue * 100) / 100;
-        gas = Math.round(gas * 1000) / 1000;
 
         // mensjes
         response = await axios.get(baseUrl + "40");
@@ -140,8 +138,9 @@ controller.getIndexModel = async () => {
             watt,
             solarWatt: solarWatt.toLocaleString("nl-NL"),
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
-            gas: gas.toLocaleString("nl-NL"),
+            gas: gas.toLocaleString("nl-NL", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
             gasDue: gasDue.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+            gasDuePlafond: gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
             time,
             weekday,
             date,
