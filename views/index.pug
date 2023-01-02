@@ -29,16 +29,17 @@ block content
         span.label Gasverbruik vandaag: 
         span.value #{gas} m<sup>3</sup>
       p.row 
-        span.label Gaskosten vandaag (plafond): 
-        span.value €#{gasDue} (€#{gasDuePlafond})
+        span.label Gaskosten vandaag / plafond: 
+        span.value 
+          span.unreal €#{gasDue} / 
+          span.real €#{gasDuePlafond}
 
       h1.section Buiten 
       p.row 
-        span.label Temperatuur: 
-        span.value #{temp}&deg;C
-      p.row 
-        span.label Gevoelstemperatuur: 
-        span.value #{feelTemp}&deg;C
+        span.label Temperatuur / gevoel: 
+        span.value 
+          |#{temp}&deg;C 
+          span.unreal / #{feelTemp}&deg;C
       p.row 
         span.label Luchtvochtigheid: 
         span.value #{humid}% (#{humidLabel})
