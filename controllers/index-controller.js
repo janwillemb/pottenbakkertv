@@ -2,8 +2,17 @@ const axios = require('axios');
 
 const controller = {};
 
-function cleanupLocation(x) {
-    return x.replace(/,\sNetherlands/g, '');
+function getLocation(x) {
+    if (checkLastUpdate(x.LastUpdate)) {
+        const location = x.Data;
+        return location.replace(/,\sNetherlands/g, '');
+    }
+    return "Onbekend";
+}
+
+function checkLastUpdate(dt) {
+    const minutes = new Date(new Date() - new Date(dt)).getMinutes();
+    return (minutes < 30);
 }
 
 controller.getIndexModel = async () => {
@@ -73,9 +82,9 @@ controller.getIndexModel = async () => {
         let gasDue = 0;
         let gasDuePlafond = 0;
         const gasPriceJan = 2.55813;
-        const gasPerDayJan = 0.20822;
+        const gasPerDayJan = 0.20822 + 0.658;
         const gasPriceFeb = 2.35777;
-        const gasPerDayFeb = 0.20822;
+        const gasPerDayFeb = 0.20822 + 0.658;
         const gasPricePlafond = 1.45;
 
         const today = new Date();
@@ -89,19 +98,19 @@ controller.getIndexModel = async () => {
 
         // mensjes
         response = await axios.get(baseUrl + "40");
-        const ruth = cleanupLocation(response.data.result[0].Data);
+        const ruth = getLocation(response.data.result[0]);
 
         response = await axios.get(baseUrl + "41");
-        const mj = cleanupLocation(response.data.result[0].Data);
+        const mj = getLocation(response.data.result[0]);
 
         response = await axios.get(baseUrl + "42");
-        const al = cleanupLocation(response.data.result[0].Data);
+        const al = getLocation(response.data.result[0]);
 
         response = await axios.get(baseUrl + "43");
-        const jw = cleanupLocation(response.data.result[0].Data);
+        const jw = getLocation(response.data.result[0]);
 
         response = await axios.get(baseUrl + "44");
-        const hugo = cleanupLocation(response.data.result[0].Data);
+        const hugo = getLocation(response.data.result[0]);
 
         // date
         let weekday = today.toLocaleString("nl-NL", { weekday: 'long' });

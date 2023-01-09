@@ -12,7 +12,7 @@ if (buienData.length > 0) {
     context.strokeStyle = "white";
 
     let firstPeriod;
-    let periodPrecip;
+    let periodPrecip = 0;
 
     for (let i = 0; i < buienData.length; i++) {
         const periodData = buienData[i];
@@ -22,9 +22,9 @@ if (buienData.length > 0) {
 
         context.fillRect(i * barSize + 1, height - barHeight - 2, barSize - 2, barHeight);
 
-        if (!firstPeriod && precip > 0) {
-            periodPrecip = Math.round(precip) / 10;
-            if (periodPrecip > 0.0) {
+        if (precip > 0) {
+            periodPrecip += Math.round(precip) / 10;
+            if (!firstPeriod && periodPrecip > 0.0) {
                 firstPeriod = period;
             }
         }
@@ -37,7 +37,7 @@ if (buienData.length > 0) {
     context.stroke();
 
     if (firstPeriod) {
-        buienTekst.innerText = periodPrecip.toLocaleString("nl-NL") + " mm neerslag verwacht om " + firstPeriod;
+        buienTekst.innerText = periodPrecip.toLocaleString("nl-NL") + " mm neerslag verwacht (vanaf " + firstPeriod + ")";
     } else {
         buienTekst.innerText = "Geen neerslag verwacht.";
     }
