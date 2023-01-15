@@ -14,6 +14,7 @@ if (buienData.length > 0) {
     let firstPeriod;
     let periodPrecip = 0;
     let numPeriodsWithRain = 0;
+    let numPeriodsWithoutRain = 0;
 
     for (let i = 0; i < buienData.length; i++) {
         const periodData = buienData[i];
@@ -23,16 +24,24 @@ if (buienData.length > 0) {
 
         context.fillRect(i * barSize + 1, height - barHeight - 2, barSize - 2, barHeight);
 
-        if (precip > 0) {
+        if (precip > 0.1) {
             periodPrecip += precip / 10;
             if (!firstPeriod && periodPrecip > 0.0) {
                 firstPeriod = period;
             }
+            numPeriodsWithoutRain = 0;
+        } else {
+            numPeriodsWithoutRain++;
         }
 
         if (firstPeriod) {
             numPeriodsWithRain++;
         }
+    }
+
+    if (numPeriodsWithoutRain > 0) {
+        // it ends with no rain, so remove the last part from the 'periods with rain'
+        numPeriodsWithRain -= numPeriodsWithoutRain;
     }
 
     context.beginPath();
