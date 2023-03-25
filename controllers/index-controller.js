@@ -81,19 +81,27 @@ controller.getIndexModel = async () => {
         let gas = Number(gasRaw.replace(/[^\d.]/g, ''));
         let gasDue = 0;
         let gasDuePlafond = 0;
+        
+        const gasPricePlafond = 1.45;
+
         const gasPriceFeb = 2.35777;
         const gasPerDayFeb = 0.20822 + 0.658;
-        const gasPricePlafond = 1.45;
+
         const gasPriceApril = 1.62927;
-        const gasPerDayApril = 0.20822 + 0.658;
+        const gasPerDayApril = gasPerDayFeb;
+
+        const gasPriceMay = 1.38988;
+        const gasPerDayMay = gasPerDayApril;
 
         const today = new Date();
         if (today.getMonth() < 3) {
             gasDue = gasPriceFeb * gas + gasPerDayFeb;
             gasDuePlafond = gasPricePlafond * gas + gasPerDayFeb;
-        } else {
+        } else if (today.getMonth() == 3) {
             gasDue = gasPriceApril * gas + gasPerDayApril;
             gasDuePlafond = gasPricePlafond * gas + gasPerDayApril;
+        } else {
+            gasDue = gasPriceMay * gas + gasPerDayMay;
         }
 
         // mensjes
@@ -149,7 +157,7 @@ controller.getIndexModel = async () => {
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
             gas: gas.toLocaleString("nl-NL", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
             gasDue: gasDue.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-            gasDuePlafond: gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+            gasDuePlafond: gasDuePlafond > 0 ? gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "-",
             time,
             weekday,
             date,
