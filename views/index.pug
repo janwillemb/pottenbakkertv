@@ -29,10 +29,14 @@ block content
         span.label Gasverbruik vandaag: 
         span.value #{gas} m<sup>3</sup>
       p.row 
-        span.label Gaskosten vandaag / plafond: 
-        span.value 
-          span.unreal €#{gasDue} / 
-          span.real €#{gasDuePlafond}
+        if gasDuePlafond
+          span.label Gaskosten vandaag / plafond: 
+          span.value 
+            span.unreal €#{gasDue} / 
+            span.real €#{gasDuePlafond}
+        else 
+          span.label Gaskosten vandaag:
+          span.value €#{gasDue}  
 
       h1.section Buiten 
       p.row 

@@ -84,24 +84,19 @@ controller.getIndexModel = async () => {
         
         const gasPricePlafond = 1.45;
 
-        const gasPriceFeb = 2.35777;
-        const gasPerDayFeb = 0.20822 + 0.658;
-
-        const gasPriceApril = 1.62927;
-        const gasPerDayApril = gasPerDayFeb;
-
         const gasPriceMay = 1.38988;
-        const gasPerDayMay = gasPerDayApril;
+        const gasPerDayMay = 0.20822 + 0.658;
+
+        const gasPriceJune = 1.36476;
+        const gasPerDayJune = gasPerDayMay;
 
         const today = new Date();
-        if (today.getMonth() < 3) {
-            gasDue = gasPriceFeb * gas + gasPerDayFeb;
-            gasDuePlafond = gasPricePlafond * gas + gasPerDayFeb;
-        } else if (today.getMonth() == 3) {
-            gasDue = gasPriceApril * gas + gasPerDayApril;
-            gasDuePlafond = gasPricePlafond * gas + gasPerDayApril;
-        } else {
+        if (today.getMonth() == 4 ) {
             gasDue = gasPriceMay * gas + gasPerDayMay;
+            gasDuePlafond = gasPricePlafond * gas + gasPerDayMay;
+        } else {
+            gasDue = gasPriceJune * gas + gasPerDayJune;
+            gasDuePlafond = gasPricePlafond * gas + gasPerDayJune;
         }
 
         // mensjes
@@ -157,7 +152,7 @@ controller.getIndexModel = async () => {
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
             gas: gas.toLocaleString("nl-NL", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
             gasDue: gasDue.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-            gasDuePlafond: gasDuePlafond > 0 ? gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "-",
+            gasDuePlafond: gasDuePlafond < gasDue ? gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "",
             time,
             weekday,
             date,
