@@ -90,13 +90,19 @@ controller.getIndexModel = async () => {
         const gasPriceJune = 1.36476;
         const gasPerDayJune = gasPerDayMay;
 
+        const gasPriceJuly = 1.29267;
+        const gasPerDayJuly = 0.25596 + 0.658;
+
         const today = new Date();
-        if (today.getMonth() == 4 ) {
+        if (today.getMonth() === 4 ) {
             gasDue = gasPriceMay * gas + gasPerDayMay;
             gasDuePlafond = gasPricePlafond * gas + gasPerDayMay;
-        } else {
+        } else if (today.getMonth() === 5) {
             gasDue = gasPriceJune * gas + gasPerDayJune;
             gasDuePlafond = gasPricePlafond * gas + gasPerDayJune;
+        } else {
+            gasDue = gasPriceJuly * gas + gasPerDayJuly;
+            gasDuePlafond = gasPricePlafond * gas + gasPerDayJuly;
         }
 
         // mensjes
