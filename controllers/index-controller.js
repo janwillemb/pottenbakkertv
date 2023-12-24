@@ -80,29 +80,18 @@ controller.getIndexModel = async () => {
         const gasRaw = response.data.result[0].CounterToday;
         let gas = Number(gasRaw.replace(/[^\d.]/g, ''));
         let gasDue = 0;
-        let gasDuePlafond = 0;
-        
-        const gasPricePlafond = 1.45;
 
-        const gasPriceMay = 1.38988;
-        const gasPerDayMay = 0.20822 + 0.658;
+        const gasPriceDec = 1.28200;
+        const gasPerDayDec = 0.25596 + 0.658;
 
-        const gasPriceJune = 1.36476;
-        const gasPerDayJune = gasPerDayMay;
-
-        const gasPriceJuly = 1.29267;
-        const gasPerDayJuly = 0.25596 + 0.658;
+        const gasPriceJan = 1.39478;
+        const gasPerDayJan = 0.25596 + 0.67530;
 
         const today = new Date();
-        if (today.getMonth() === 4 ) {
-            gasDue = gasPriceMay * gas + gasPerDayMay;
-            gasDuePlafond = gasPricePlafond * gas + gasPerDayMay;
-        } else if (today.getMonth() === 5) {
-            gasDue = gasPriceJune * gas + gasPerDayJune;
-            gasDuePlafond = gasPricePlafond * gas + gasPerDayJune;
+        if (today.getMonth() === 11 ) {
+            gasDue = gasPriceDec * gas + gasPerDayDec;
         } else {
-            gasDue = gasPriceJuly * gas + gasPerDayJuly;
-            gasDuePlafond = gasPricePlafond * gas + gasPerDayJuly;
+            gasDue = gasPriceJan * gas + gasPerDayJan;
         }
 
         // mensjes
@@ -158,7 +147,7 @@ controller.getIndexModel = async () => {
             solarTodayWatt: solarTodayWatt.toLocaleString("nl-NL"),
             gas: gas.toLocaleString("nl-NL", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
             gasDue: gasDue.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-            gasDuePlafond: gasDuePlafond < gasDue ? gasDuePlafond.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "",
+            gasDuePlafond: "",
             time,
             weekday,
             date,
